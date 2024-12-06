@@ -1,0 +1,239 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #333;  /* Dark background */
+    padding: 15px 30px;  /* More padding for a spacious feel */
+    display: flex;
+    justify-content: space-between; /* Positions logo and links on opposite sides */
+    align-items: center; /* Vertically centers items */
+}
+
+/* Logo Styling */
+.navbar .logo {
+    color: white;
+    font-size: 1.8em;  /* Slightly larger logo for better prominence */
+    font-weight: bold;
+    margin-left: 0; /* Remove left margin */
+}
+
+/* Nav Links Styling */
+.navbar .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;  /* Remove any margin */
+    display: flex;  /* Align items horizontally */
+}
+
+.navbar .nav-links li {
+    margin-left: 20px; /* Spacing between items */
+}
+
+/* Link Styling */
+.navbar .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px;
+    display: block; /* Make the entire link area clickable */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover Effect */
+.navbar .nav-links li a:hover {
+    color: #4CAF50;  /* Green hover color */
+    transform: scale(1.1); /* Slightly scale up the link on hover */
+}
+
+/* Responsive Navbar for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .navbar .nav-links {
+        flex-direction: column; /* Stack links vertically */
+        width: 100%; /* Full-width links */
+        margin-top: 10px; /* Space between the logo and links */
+    }
+
+    .navbar .nav-links li {
+        margin-left: 0; /* Remove left margin for mobile view */
+        margin-bottom: 10px; /* Add space between each link */
+    }
+
+    .navbar .nav-links li a {
+        padding: 15px; /* More padding for easier tapping on mobile */
+        font-size: 1.4em; /* Larger font size for readability */
+    }
+}
+
+
+/* Header Section */
+.hero {
+    background-color: #4CAF50;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+.github-button {
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.github-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+
+.hero h1 {
+    margin: 0;
+}
+
+.hero p {
+    font-size: 1.2em;
+}
+
+/* Section Styling */
+section {
+    padding: 40px;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Collapsible Button */
+.collapsible {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.collapsible:hover {
+    background-color: #45a049;
+}
+
+/* Content inside collapsible (hidden by default) */
+.content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    display: none;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+/* Concept grid layout */
+.concept-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.concept-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+/* Hidden content */
+.content {
+    display: none; /* Initially hidden */
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Ensure images are responsive */
+.content img {
+    max-width: 90%;  /* Maximum width is 90% of the parent container */
+    height: auto;    /* Maintain the aspect ratio of the image */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: If you want to make images smaller on large screens */
+@media screen and (min-width: 1024px) {
+    .content img {
+        max-width: 60%;  /* Set to 60% of parent container on larger screens */
+    }
+}
+/* Hidden content */
+.content {
+    display: none; /* Initially hidden */
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Ensure images are responsive */
+.content img {
+    max-width: 90%;  /* Maximum width is 90% of the parent container */
+    height: auto;    /* Maintain the aspect ratio of the image */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: If you want to make images smaller on large screens */
+@media screen and (min-width: 1024px) {
+    .content img {
+        max-width: 60%;  /* Set to 60% of parent container on larger screens */
+    }
+}
+
+/* Footer Styling */
+footer {
+    background-color: #222; /* Dark background for contrast */
+    color: white;
+    text-align: center;
+    padding: 40px 20px; /* Generous padding for a clean look */
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+footer p {
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #bbb; /* Lighter color for less emphasis */
+}
+
+footer .footer-bottom {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #aaa;
+    text-align: center;
+    border-top: 1px solid #444; /* Subtle border to separate sections */
+    padding-top: 15px;
+}
+
+/* Responsive Design for Footer */
+@media (max-width: 768px) {
+    footer {
+        padding: 30px 20px; /* Adjust padding for mobile screens */
+    }
+
+    footer p {
+        font-size: 1.1em; /* Ensure text is readable on smaller screens */
+    }
+}

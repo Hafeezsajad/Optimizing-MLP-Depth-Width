@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploring Depth and Width in MLPs</title>
+    <link rel="stylesheet" href="style5.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- For interactive graphs -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">MLP Tutorial</div>
+        <ul class="nav-links">
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#concepts">Concepts</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#demo">Demonstration</a></li>
+            <li><a href="#summary">Summary of Results and Real-World Applications</a></li>
+            <li><a href="#Personal Reflection">Conclusion</a></li>
+            <li><a href="#references">References</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="hero">
+        <h1>Exploring Depth and Width in Multilayer Perceptrons (MLPs)</h1>
+        <p>Understanding How Network Architecture Influences Performance</p>
+        <a href="https://github.com/Hafeezsajad/Optimizing-MLP-Depth-Width.git" target="_blank">
+            <button class="github-button">View Code on GitHub</button>
+        </a>
+        
+    </header>
+
+    <!-- Introduction Section -->
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <p>Multilayer Perceptrons (MLPs) are fundamental components of deep learning and form the backbone of many modern machine learning systems. MLPs are feedforward neural networks with one or more hidden layers between the input and output layers. They can model complex non-linear relationships, making them versatile for tasks like classification, regression, and more.</p>
+        <button class="collapsible">Read More</button>
+        <div class="content">
+            <p>
+                MLPs revolutionized machine learning by introducing the concept of learning hierarchical features through multiple layers of neurons. Each layer extracts progressively more abstract features, enabling MLPs to solve complex problems that linear models struggle with. For instance, in image recognition, shallow layers might identify edges, while deeper layers detect complex objects.
+                Depth and Width in Neural Networks:
+                The "depth" of an MLP refers to the number of hidden layers, while "width" refers to the number of neurons per layer. These two aspects significantly influence the model’s learning capacity. Depth allows the network to model hierarchical structures, while width determines its ability to capture diverse patterns. Striking the right balance between depth and width is critical for building efficient neural networks.</p>
+                <p><strong>In this tutorial</strong> we will explore how two critical parameters—depth (the number of layers) and width (the number of neurons per layer)—influence the performance of MLPs. These parameters significantly affect how an MLP learns, generalizes, and handles computational resources. Understanding their interplay is essential for optimizing neural networks for specific tasks.</p>
+                <p>This tutorial aims to provide a thorough understanding of the trade-offs associated with depth and width and how they impact the design of effective MLP architectures. Practical experiments, real-world applications, and visualizations will supplement the discussion to enhance comprehension.</p>
+                <style>
+                    .image-center {
+                        display: inline-block;
+                        margin-right: 20px; /* Adds space to the right of each image */
+                        vertical-align: middle; /* Aligns the images vertically */
+                    }
+                </style>
+                
+                <img src="MLP-architecture-with-deep-learning.png" alt="Diagram illustrating an MLP with labeled layers and neurons" class="image-center">
+                <img src="Multilayer.png" alt="MLP-architecture-with-deep-learning" class="image-center">
+                
+            </div>
+    </section>
+
+    <!-- Concepts Section -->
+    <section id="concepts">
+        <h2>Concepts of Depth and Width</h2>
+        <div class="concept-grid">
+            <div class="concept-item">
+                <h3>Depth</h3>
+                <p>Depth in a neural network refers to the total number of layers, including the input layer, hidden layers, and the output layer. A deeper network can theoretically learn more complex representations by progressively extracting higher-level features.</p>
+                <p>
+                    <strong>Key Insights:</strong><br>
+                    Feature Hierarchy: Deeper networks learn hierarchical representations (e.g., edges, shapes, objects in images).<br>
+                    Expressive Power: Theoretically, increasing depth increases the expressive power of a network, but diminishing returns and practical challenges like vanishing gradients arise beyond a certain point.<br>
+                    Training Challenges: Issues such as vanishing/exploding gradients and increased computational cost can occur. Solutions include techniques like batch normalization, residual connections, and ReLU activations.
+                </p>
+                <button class="collapsible">Graphical View</button>
+                <div class="content">
+                    <img src="depthdiagram .png" alt="MLP Architecture with Deep Learning" class="image-center">
+                </div>
+            </div>
+    
+            <div class="concept-item">
+                <h3>Width</h3>
+                <p>Width refers to the number of neurons in each layer. Wider networks have a larger capacity to learn and memorize complex data but might require careful regularization to avoid overfitting.
+                <p>
+                    <strong>Key Insights:</strong><br>
+                    
+                    Capacity: Increasing width allows networks to better represent complex functions, but the benefits plateau after a certain point.<br>
+                    Training Challenges: Wider networks may require more data to avoid overfitting.<br>
+                    Expressive Limitations: A wide but shallow network can approximate functions but may lack the ability to learn compositional hierarchies compared to deeper networks.
+                </p>
+                <button class="collapsible">Graphical View</button>
+                
+                <div class="content">
+                    <img src="width.png" alt="MLP Architecture with Deep Learning" class="image-center">
+
+                    
+                </div>
+            </div>
+        </div>
+        <h3> Comparing Depth and Width</h3>
+       <strong>Discussion</strong> 
+        Depth and width are complementary aspects of neural network design. While depth helps in learning compositional features, width ensures sufficient capacity for representation.
+
+        Trade-offs: Deep and narrow networks might fail to generalize complex data, while shallow and wide networks might overfit.
+         Balanced Design: In practice, moderate depth and width often yield the best results.
+<pre>
+         <code>
+            import matplotlib.pyplot as plt
+            import numpy as np
+            
+            # Set up the figure
+            fig, axes = plt.subplots(3, 1, figsize=(10, 15))
+            fig.tight_layout(pad=5)
+            
+            # Diagram 1: Depth vs Performance (accuracy)
+            depth = np.arange(1, 21, 2)  # 1 to 20 layers with step of 2
+            accuracy_depth = 1 - np.exp(-0.15 * depth)  # Simulated performance trend
+            
+            axes[0].plot(depth, accuracy_depth, marker='o', label='Accuracy')
+            axes[0].set_title("Impact of Depth on Performance")
+            axes[0].set_xlabel("Number of Layers (Depth)")
+            axes[0].set_ylabel("Model Accuracy")
+            axes[0].grid(True)
+            axes[0].legend()
+            
+            # Diagram 2: Width vs Performance (accuracy)
+            width = np.arange(5, 105, 10)  # 5 to 100 neurons per layer
+            accuracy_width = 1 - np.exp(-0.05 * width)  # Simulated performance trend
+            
+            axes[1].plot(width, accuracy_width, marker='s', color='orange', label='Accuracy')
+            axes[1].set_title("Impact of Width on Performance")
+            axes[1].set_xlabel("Number of Neurons per Layer (Width)")
+            axes[1].set_ylabel("Model Accuracy")
+            axes[1].grid(True)
+            axes[1].legend()
+            
+            # Diagram 3: Heatmap of Depth vs Width performance
+            depth_values = np.arange(1, 21, 2)  # Depth: 1 to 20 layers
+            width_values = np.arange(5, 105, 10)  # Width: 5 to 100 neurons per layer
+            # Simulated performance (accuracy as a function of depth and width)
+            performance = np.array([[1 - np.exp(-0.01 * d * w) for w in width_values] for d in depth_values])
+            
+            im = axes[2].imshow(performance, cmap='viridis', aspect='auto', extent=[5, 100, 20, 1])
+            axes[2].set_title("Performance Heatmap: Depth vs Width")
+            axes[2].set_xlabel("Width (Number of Neurons per Layer)")
+            axes[2].set_ylabel("Depth (Number of Layers)")
+            fig.colorbar(im, ax=axes[2], label="Model Accuracy")
+            
+            # Show all diagrams
+            plt.show()
+            </code>
+        </pre>
+        <button class="collapsible">practical View of above code</button>
+                
+                <div class="content">
+                    <img src="perofrmace.png" alt="MLP Architecture with Deep Learning" class="image-center">
+    </section>
+    
+
+    <!-- Results Section -->
+    <section id="results">
+        <h2>Impact of Depth and Width</h2>
+        <canvas id="accuracyChart"></canvas>
+
+    </section>
+
+    <!-- Demonstration Section -->
+    <section id="demo">
+        <h2>Practical Demonstration</h2>
+        <p>The Fashion MNIST dataset consists of 70,000 grayscale images of 10 fashion categories, such as T-shirts, shoes, and handbags, with 28x28 pixel dimensions. It is a more complex alternative to the MNIST handwritten digits dataset, making it ideal for testing and comparing neural network architectures.
+
+            Why I Chose Fashion MNIST
+            Fashion MNIST offers a balance between simplicity and complexity, making it a suitable dataset to explore how changes in network depth (number of layers) and width (number of neurons per layer) impact model performance. It allows us to experiment with shallow vs. deep architectures, narrow vs. wide networks, and understand how overfitting or underfitting occurs.
+            
+            Dataset Details
+            Total images: 70,000 (60,000 for training, 10,000 for testing)
+            Classes: 10 fashion categories (e.g., T-shirt, Trouser, Dress)
+            Image size: 28x28 grayscale pixels
+            What the Code Shows
+            The code explores how varying depth and width in a Multi-Layer Perceptron (MLP) network affects performance. I tested the following configurations:
+            
+            Depth: 1, 2, and 3 hidden layers
+            Width: 128, 256, and 512 neurons per layer
+            Each configuration was trained for five epochs, with validation accuracy and loss tracked to measure performance changes.
+            
+            Key Insights
+            Depth and Overfitting: Deeper networks may capture more complex patterns but can lead to overfitting.
+            Width and Generalization: Wider networks can improve performance, but excessive width might not always lead to better results.
+            Validation Accuracy and Loss: Graphs show how well the model generalizes on unseen data across different architectures, highlighting the trade-offs in network design.
+            These findings help understand the impact of architectural decisions on model performance in real-world tasks like fashion item classification.
+            </p>
+        <pre>
+            <code>
+                import tensorflow as tf
+                import matplotlib.pyplot as plt
+                from tensorflow.keras import layers, models
+                from tensorflow.keras.datasets import fashion_mnist
+                from tensorflow.keras.utils import to_categorical
+                
+                # Load Fashion MNIST dataset
+                (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+                
+                # Preprocess the data
+                train_images = train_images.reshape((train_images.shape[0], 28, 28, 1))
+                test_images = test_images.reshape((test_images.shape[0], 28, 28, 1))
+                train_images, test_images = train_images / 255.0, test_images / 255.0
+                
+                train_labels = to_categorical(train_labels)
+                test_labels = to_categorical(test_labels)
+                
+                # Define a function to build the model
+                def build_model(depth, width):
+                    model = models.Sequential()
+                    model.add(layers.Flatten(input_shape=(28, 28, 1)))
+                    for _ in range(depth):
+                        model.add(layers.Dense(width, activation='relu'))
+                    model.add(layers.Dense(10, activation='softmax'))
+                    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+                    return model
+                
+                # Train the model with different depths and widths
+                depths = [1, 2, 3]  # Experiment with 1, 2, 3 layers
+                widths = [128, 256, 512]  # Experiment with 128, 256, 512 units per layer
+                
+                history = {}
+                
+                for depth in depths:
+                    for width in widths:
+                        model = build_model(depth, width)
+                        print(f"Training model with depth={depth} and width={width}")
+                        history[(depth, width)] = model.fit(train_images, train_labels, epochs=5, validation_data=(test_images, test_labels))
+                
+                # Plotting the results
+                plt.figure(figsize=(12, 8))
+                for (depth, width), hist in history.items():
+                    plt.plot(hist.history['val_accuracy'], label=f'Depth={depth}, Width={width}')
+                plt.title('Validation Accuracy vs. Epochs')
+                plt.xlabel('Epochs')
+                plt.ylabel('Validation Accuracy')
+                plt.legend()
+                plt.show()
+                
+                plt.figure(figsize=(12, 8))
+                for (depth, width), hist in history.items():
+                    plt.plot(hist.history['val_loss'], label=f'Depth={depth}, Width={width}')
+                plt.title('Validation Loss vs. Epochs')
+                plt.xlabel('Epochs')
+                plt.ylabel('Validation Loss')
+                plt.legend()
+                plt.show()
+            </code>
+        </pre>
+        <button class="collapsible">practical View of above code</button>
+                
+                <div class="content">
+                <img src="practical demo.png" alt="Practical Demo" class="image-center">
+                <img src="practical demo2.png" alt="Practical Demo" class="image-center">
+
+                
+                
+    </section>
+    <section>
+        
+            <h2>Comparing Shallow and Deep MLP Architectures</h2>
+            <p>
+                This code demonstrates how varying the depth of a neural network impacts its ability to learn and generalize. Using the MNIST dataset, which consists of 28x28 grayscale images of handwritten digits, the experiment compares the performance of a <strong>shallow model (2 layers)</strong> and a <strong>deep model (4 layers)</strong>. This aligns with the core of our study—how depth influences MLP performance.
+            </p>
+            <h3>Purpose of the Code:</h3>
+            <ul>
+                <li>
+                    <strong>Shallow vs. Deep Networks:</strong>
+                    <ul>
+                        <li><strong>Shallow Model:</strong> Comprises only two layers, focusing on simplicity. It tests how a basic architecture performs on a standard dataset.</li>
+                        <li><strong>Deep Model:</strong> Involves four layers, introducing greater depth to capture hierarchical patterns. It evaluates whether increasing depth improves accuracy and generalization.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Training and Validation Comparison:</strong>
+                    By plotting accuracy over epochs for both models, we analyze differences in learning dynamics and performance trends, crucial for understanding how depth affects results.
+                </li>
+                <li>
+                    <strong>Practical Insights:</strong>
+                    This experiment helps identify trade-offs like <em>overfitting</em> in deeper models and <em>underfitting</em> in shallow networks, key considerations when designing MLP architectures.
+                </li>
+            </ul>
+            <h3>Why These Steps Are Important:</h3>
+            <ol>
+                <li>
+                    <strong>Data Preprocessing:</strong>
+                    Reshaping and normalizing the data ensures the model trains efficiently by keeping values between 0 and 1, a standard practice to improve convergence in neural networks.
+                </li>
+                <li>
+                    <strong>Defining Models:</strong>
+                    The shallow and deep models are defined using <code>Sequential</code>, with fully connected <code>Dense</code> layers to process the flattened input. The <strong>ReLU activation</strong> introduces non-linearity, and the <strong>softmax activation</strong> ensures proper classification outputs.
+                </li>
+                <li>
+                    <strong>Training and Visualization:</strong>
+                    Models are trained for 10 epochs each, with accuracy monitored on both training and validation sets. The generated accuracy plot provides a clear comparison, helping to visualize how architectural depth affects learning.
+                </li>
+            </ol>
+            <h3>What We Achieve:</h3>
+            <p>
+                <strong>Shallow Model:</strong> Serves as a baseline to understand the limitations of a simple architecture.<br>
+                <strong>Deep Model:</strong> Tests the hypothesis that increased depth enables better learning of complex patterns, though with potential risks of overfitting.<br>
+                <strong>Visualization:</strong> The accuracy graph helps assess whether the added complexity of the deep model is justified by its performance gains.
+            </p>
+            <p>
+                This experiment mirrors the principles explored in this assignment: balancing depth and width for optimal performance while understanding their trade-offs in practical scenarios.
+            </p>
+        
+            <button class="collapsible">Graphical view of comaparison</button>
+                
+            <div class="content">
+            <img src="comapriosn of deep.png" alt="Practical Demo" class="image-center">
+          
+    </section>
+    <section id="summary">
+        <div class="summary-of-results">
+            <h2>Summary of Results and Real-World Applications</h2>
+        
+            <p>In this tutorial, we explored how the architectural parameters of <strong>depth</strong> (number of hidden layers) and <strong>width</strong> (number of neurons per layer) influence the performance of <strong>Multilayer Perceptrons (MLPs)</strong>, specifically using the <strong>Fashion MNIST dataset</strong> for practical experiments.</p>
+        
+            <h3>Key Insights from Experiments</h3>
+            <ul>
+                <li>
+                    <strong>Depth's Impact on Model Performance</strong>: 
+                    <p>Increasing depth (i.e., adding more layers) allows the network to learn more hierarchical features and complex representations. For instance, deeper networks captured increasingly abstract patterns such as shapes and objects in fashion images. However, as the depth grew, the <strong>risk of overfitting</strong> increased, with performance improvements plateauing or even deteriorating for networks beyond a certain depth. This highlights the importance of balancing network depth to avoid memorizing training data rather than generalizing effectively to new data.</p>
+                </li>
+                <li>
+                    <strong>Width and Generalization</strong>: 
+                    <p>A <strong>wider network</strong>, with more neurons per layer, generally improved the model's ability to capture diverse patterns in the data. However, after a certain point, increasing width beyond an optimal threshold did not contribute significantly to better performance and might even cause overfitting, especially when the model became too complex and started memorizing noise instead of meaningful patterns. This demonstrates the trade-off between increasing width for better feature representation and avoiding excessive complexity that leads to overfitting.</p>
+                </li>
+                <li>
+                    <strong>Trade-offs Between Depth and Width</strong>: 
+                    <p>The interplay between <strong>depth</strong> and <strong>width</strong> is crucial for optimal MLP performance. A <strong>shallow but wide network</strong> may struggle with learning complex hierarchies, while a <strong>deep but narrow network</strong> could fail to generalize on complex tasks. The <strong>best-performing architectures</strong> were often those that struck a balance between the two: sufficient depth for learning abstract features, coupled with an adequate width to represent them. This is crucial when designing networks for practical tasks, such as classifying fashion items in the Fashion MNIST dataset.</p>
+                </li>
+            </ul>
+        
+            <h3>Practical Implications for Neural Network Design</h3>
+            <ul>
+                <li>
+                    <strong>Optimizing Network Design</strong>: 
+                    <p><strong>Hyperparameter tuning</strong> is essential when working with MLPs. By experimenting with varying depths and widths, we can determine the configuration that offers the best trade-off between model complexity and generalization. It’s important to start with simpler architectures and progressively test more complex configurations, ensuring that performance on validation data is continuously monitored.</p>
+                </li>
+                <li>
+                    <strong>Avoiding Overfitting</strong>: 
+                    <p>To prevent overfitting, especially in deeper or wider networks, methods like <strong>regularization</strong>, <strong>dropout</strong>, and <strong>early stopping</strong> are crucial. These techniques help maintain the model's ability to generalize to new, unseen data, rather than becoming overly specialized to the training set.</p>
+                </li>
+                <li>
+                    <strong>Computational Efficiency</strong>: 
+                    <p>Larger and deeper networks require more <strong>computational resources</strong>. Therefore, while exploring the impact of depth and width, it’s necessary to balance <strong>performance with computational efficiency</strong>. In production environments, where both time and resources are limited, optimizing network architecture for efficiency without sacrificing accuracy becomes essential.</p>
+                </li>
+            </ul>
+        
+            <p><strong>In conclusion</strong>, this study underscores the importance of understanding the relationship between <strong>depth</strong> and <strong>width</strong> when designing MLPs. By strategically choosing network architectures, we can improve model performance, reduce overfitting, and ensure that MLPs are computationally efficient for real-world applications such as image classification tasks like Fashion MNIST.</p>
+        </div>
+        
+
+    </section>
+    <section id="Personal Reflection">
+        <h2>Conclusion and Personal Reflection</h2>
+        <p>
+            While working on this project, I faced several challenges that deepened my understanding of neural network architecture and the practical considerations involved in designing effective models.
+        </p>
+        <p>
+            <strong>Depth and Overfitting:</strong> Initially, I was excited to increase the depth of the neural network, believing that adding more layers would always improve model performance. However, as I worked through the experiments, I encountered a point where increasing depth led to diminishing returns and even a drop in performance.This was a challenge I hadn't anticipated. It helped me realize the fine balance between model complexity and overfitting. In the beginning, I struggled to understand how a deeper network could "memorize" the data instead of generalizing. But as I saw the training accuracy soar while validation accuracy stagnated or dropped, the concept of overfitting became much clearer. This hands-on experience highlighted the importance of tuning depth carefully to avoid overfitting, something I had read about but now truly understood
+        </p>
+        <p>
+            <strong>Trade-off Between Depth and Width:</strong> Another challenge arose when I was comparing the effects of depth and width. While I expected increasing width (more neurons per layer) to always improve the model's ability to capture features, I observed that after a certain point, adding neurons didn’t improve performance and might have even led to overfitting. This realization made me think critically about the trade-offs involved. I found it difficult at first to decide on the "optimal" architecture, but through trial and error, I learned that striking the right balance between depth and width is essential for effective model generalization.
+        </p>
+        <p>
+            <strong>Practical Implications:</strong> The project also gave me a deeper understanding of the computational trade-offs when using deeper or wider models. I initially underestimated how much computational resources would be required as I increased the depth and width of the networks. This forced me to reconsider the importance of computational efficiency in real-world applications, where resources like time and memory are often limited.
+        </p>
+        <p>
+            <strong>Broader Insights:</strong> What stood out to me the most was how neural network design is as much about intuition as it is about math.The trial-and-error process, combined with monitoring the models' performance on training and validation sets, helped me realize that while there are theoretical guidelines, the best architecture often emerges from hands-on experimentation and fine-tuning. This experience solidified my understanding of neural network design and gave me a deeper appreciation for the art of model optimization.
+
+            Overall, this project helped me go beyond theoretical knowledge and provided practical insights that I can apply in future machine learning tasks. The hands-on challenges and the iterative process of fine-tuning the models gave me a much more nuanced understanding of how to design, train, and optimize neural networks effectively.
+        </p>
+    </section>
+    
+
+    <!-- References Section -->
+    <section id="references">
+        <h2>References</h2>
+        <ul>
+            <li><a href="https://www.deeplearningbook.org/" target="_blank">Goodfellow et al. (2016) - Deep Learning</a></li>
+            <li><a href="https://arxiv.org/abs/1512.03385" target="_blank">Telgarsky, M. (2016). The Power of Depth for Feedforward Neural Networks. Proceedings of the 33rd International Conference on Machine Learning</a></li>
+            <li><a href="https://arxiv.org/abs/1806.07572" target="_blank">Descent in Wide Neural Networks. Advances in Neural Information Processing Systems</a></li>
+            <li><a href="https://www.sciencedirect.com/topics/computer-science/multilayer-perceptron" target="_blank">Multilayer Perceptron.</a></li>
+            <li><a href="https://www.researchgate.net/figure/Typical-MLP-architecture-with-deep-learning_fig9_320420847" target="_blank">Studying the Effect of Activation Function on Classification Accuracy Using Deep Artificial Neural Networks.</a></li>
+            <li><a href="https://arxiv.org/abs/1708.07747" target="_blank">Xiao, H., Rasul, K., & Vollgraf, R. (2017). Fashion-MNIST.</a></li>
+            <li><a href="https://www.tensorflow.org/guide/keras" target="_blank">TensorFlow Documentation. (2023). Getting Started with Keras.</a></li>
+            <!-- More references -->
+        </ul>
+    </section>
+
+    <!-- Footer -->
+<footer>
+    <p>Created by <strong>Hafeez Sajad</strong></p>
+    <p>Student ID: <strong>23026366</strong> | All rights reserved</p>
+
+    
+
+
+    <script src="script.js"></script> <!-- JavaScript for collapsibles and charts -->
+</body>
+</html>
